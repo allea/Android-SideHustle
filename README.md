@@ -12,8 +12,8 @@ Android Sideloader is a portable app that lets you very easily sideload apps ont
 Just:
 1. Open Android Sideloader
 2. Select your device
-3. Choose an APK file (or drag and drop one)
-4. Click `Install APK`
+3. Choose an APK or XAPK file (or drag and drop one)
+4. Click `Install`
 
 That's it! The entire process only takes a few seconds. **No command lines, no installing SDKs, no installing ADB, no
 installing drivers** - Just download and run!
@@ -21,6 +21,13 @@ installing drivers** - Just download and run!
 #### See it in action:
 
 <img src="docs/videos/demo2.gif" alt="See it in action" width="800"/>
+
+## Features
+
+- **APK Installation** - Install standard Android APK files
+- **XAPK Support** - Install XAPK packages (split APKs + OBB data files) automatically
+- **Drag & Drop** - Simply drag files into the window
+- **No Setup Required** - Bundled ADB, no SDK or drivers needed
 
 ## Table of Contents
 
@@ -159,22 +166,24 @@ be done by doing the following ([From Apple support](https://support.apple.com/g
       <figcaption><em>Devices appear in "Connected Devices" list</em></figcaption>
     </figure>
 
-3. Choose an APK file (or drag and drop one)
+3. Choose an APK or XAPK file (or drag and drop one)
 
     <figure>
-      <img src="docs/images/demo-select-apk.png" alt="A file browser window will appear where you can select the APK file you want to install" width="400"/>
+      <img src="docs/images/demo-select-apk.png" alt="A file browser window will appear where you can select the APK or XAPK file you want to install" width="400"/>
       <br>
-      <figcaption><em>A file browser window will appear where you can select the APK file you want to install</em></figcaption>
+      <figcaption><em>A file browser window will appear where you can select the APK or XAPK file you want to install</em></figcaption>
     </figure>
     <br>
     <br>
     <figure>
-      <img src="docs/images/demo-drag-apk.png" alt="You can also just drag and drop your APK file into the Android Sideloader window at any time" width="400"/>
+      <img src="docs/images/demo-drag-apk.png" alt="You can also just drag and drop your APK/XAPK file into the Android Sideloader window at any time" width="400"/>
       <br>
-      <figcaption><em>You can also just drag and drop your APK file into the Android Sideloader window at any time</em></figcaption>
+      <figcaption><em>You can also just drag and drop your APK/XAPK file into the Android Sideloader window at any time</em></figcaption>
     </figure>
 
-4. Click `Install APK`
+    > **What is XAPK?** XAPK is a package format that bundles split APKs and OBB expansion files together. Android Sideloader automatically extracts and installs all components.
+
+4. Click `Install`
 
     <figure>
       <img src="docs/images/demo-install-apk.png" alt="" width="400"/>
