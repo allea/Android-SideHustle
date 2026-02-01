@@ -44,4 +44,42 @@ class FilePath {
     Log.d("Extracted asset: ${ret.path}");
     return ret;
   }
+
+  /// Create a temporary subdirectory
+  static Future<Directory> createTempSubDir(String name) async {
+    final basePath = await path;
+    final dir = Directory(p.join(basePath, name));
+    await dir.create(recursive: true);
+    Log.d("Created temp subdirectory: ${dir.path}");
+    return dir;
+  }
+
+  /// Cleanup a temporary directory
+  static Future<void> cleanupTempDir(String dirPath) async {
+    try {
+      final dir = Directory(dirPath);
+      if (await dir.exists()) {
+        await dir.delete(recursive: true);
+        Log.d("Cleaned up temp directory: $dirPath");
+      }
+    } catch (e, stackTrace) {
+      Log.w("Failed to cleanup temp directory: $dirPath",
+          error: e, stackTrace: stackTrace);
+    }
+  }
+
+  /// Cleanup all XAPK temporary files
+  static Future<void> cleanupAllXapkTemp() async {
+    try {
+      final basePath = await path;
+      final xapkTempDir = Directory(p.join(basePath, 'xapk_temp'));
+      if (await xapkTempDir.exists()) {
+        await xapkTempDir.delete(recursive: true);
+        Log.i("Cleaned up all XAPK temp files");
+      }
+    } catch (e, stackTrace) {
+      Log.w("Failed to cleanup XAPK temp files",
+          error: e, stackTrace: stackTrace);
+    }
+  }
 }

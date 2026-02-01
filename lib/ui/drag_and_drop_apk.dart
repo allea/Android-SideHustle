@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 
 import '../logs/log.dart';
 
+/// Supported package types
+enum PackageType { apk, xapk }
+
 class DragAndDropApk extends StatefulWidget {
   final Widget child;
-  final Function(String) onApkDropped;
+  final Function(String path, PackageType type) onPackageDropped;
 
   const DragAndDropApk({
-    super.key, required this.child, required this.onApkDropped,
+    super.key,
+    required this.child,
+    required this.onPackageDropped,
   });
 
   @override
@@ -37,8 +42,12 @@ class _DragAndDropApkState extends State<DragAndDropApk> {
         Log.d("onDragDone");
         if (details.files.isNotEmpty) {
           final file = details.files.first;
-          if (file.name.toLowerCase().endsWith('.apk')) {
-            _handleApkDropped(file.path);
+          final fileName = file.name.toLowerCase();
+
+          if (fileName.endsWith('.apk')) {
+            _handlePackageDropped(file.path, PackageType.apk);
+          } else if (fileName.endsWith('.xapk')) {
+            _handlePackageDropped(file.path, PackageType.xapk);
           } else {
             _handleInvalidFileDropped();
           }
@@ -73,7 +82,7 @@ class _DragAndDropApkState extends State<DragAndDropApk> {
                           ),
                           const SizedBox(height: 20),
                           Text(
-                            'Drag and drop your APK file here',
+                            'Drag and drop your APK or XAPK file here',
                             style: Theme.of(context).textTheme.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
@@ -89,9 +98,9 @@ class _DragAndDropApkState extends State<DragAndDropApk> {
     );
   }
 
-  void _handleApkDropped(String filePath) {
-    Log.i("APK file dropped: $filePath");
-    widget.onApkDropped(filePath);
+  void _handlePackageDropped(String filePath, PackageType type) {
+    Log.i("${type.name.toUpperCase()} file dropped: $filePath");
+    widget.onPackageDropped(filePath, type);
     setState(() {
       _isDragging = false;
     });
@@ -107,7 +116,8 @@ class _DragAndDropApkState extends State<DragAndDropApk> {
         ),
         icon: const Icon(Icons.warning_rounded, color: Colors.orange, size: 48),
         title: const Text('Invalid File'),
-        content: const Text('You can only drag and drop APK files here',
+        content: const Text(
+          'You can only drag and drop APK or XAPK files here',
           textAlign: TextAlign.center,
         ),
         actions: [
