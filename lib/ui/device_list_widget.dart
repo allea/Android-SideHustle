@@ -7,8 +7,13 @@ import '../logs/log.dart';
 
 class DeviceListWidget extends StatefulWidget {
   final void Function(AdbDevice? selectedDevice) onDeviceSelected;
+  final bool showSerialNumber;
 
-  const DeviceListWidget({super.key, required this.onDeviceSelected});
+  const DeviceListWidget({
+    super.key,
+    required this.onDeviceSelected,
+    this.showSerialNumber = true,
+  });
 
   @override
   State<DeviceListWidget> createState() => _DeviceListWidgetState();
@@ -110,7 +115,10 @@ class _DeviceListWidgetState extends State<DeviceListWidget> {
                               vertical: 8.0,
                               horizontal: 8.0
                           ),
-                          child: DeviceListItem(device: device)
+                          child: DeviceListItem(
+                            device: device,
+                            showSerialNumber: widget.showSerialNumber,
+                          )
                         ),
                       );
                     },

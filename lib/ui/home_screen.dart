@@ -9,10 +9,12 @@ import '../adb/adb.dart';
 import '../adb/adb_device.dart';
 import '../logs/log.dart';
 import '../logs/save_logs_button.dart';
+import '../services/preferences.dart';
 import '../xapk/xapk_installer.dart';
 import 'device_list_widget.dart';
 import 'drag_and_drop_apk.dart';
 import 'install_progress_dialog.dart';
+import 'settings_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   AdbDevice? _selectedDevice;
   String? _selectedFile;
   PackageType? _selectedFileType;
+  bool _showSerialNumber = Preferences.showSerialNumber;
 
   String? get _selectedFileName =>
       _selectedFile?.split(Platform.pathSeparator).last;
@@ -115,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _launchHelpURL() async {
     final Uri url = Uri.parse(
-        'https://github.com/ryan-andrew/android_sideloader?tab=readme-ov-file#android-sideloader');
+        'https://github.com/allea/Android-SideHustle/discussions');
     if (!await launchUrl(url)) {
       throw 'Could not launch $url';
     }
@@ -139,6 +142,21 @@ class _HomeScreenState extends State<HomeScreen> {
             const SaveLogButton(),
             const SizedBox(width: 8),
             Tooltip(
+              message: "Settings",
+              child: IconButton(
+                onPressed: () => SettingsDialog.show(
+                  context,
+                  onSettingsChanged: () {
+                    setState(() {
+                      _showSerialNumber = Preferences.showSerialNumber;
+                    });
+                  },
+                ),
+                icon: const Icon(Icons.settings),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Tooltip(
               message: "More Information",
               child: IconButton(
                 onPressed: () => _launchHelpURL(),
@@ -150,6 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Row(
           children: [
             DeviceListWidget(
+              showSerialNumber: _showSerialNumber,
               onDeviceSelected: (device) {
                 Log.i("Selected device $device");
                 WidgetsBinding.instance.addPostFrameCallback((_) {

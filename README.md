@@ -44,7 +44,7 @@ installing drivers** - Just download and run!
 
 ## Downloading
 
-1. Go to the [Latest Release](https://github.com/ryan-andrew/android_sideloader/releases/latest)
+1. Go to the [Latest Release](https://github.com/allea/Android-SideHustle/releases/latest)
 2. Choose one of the following from the `Assets` dropdown
    - **Windows**
      - `AndroidSideloader-v*.*.*-Windows-Installer.exe` (_Recommended_)
@@ -220,7 +220,7 @@ be done by doing the following ([From Apple support](https://support.apple.com/g
 
 ### Something else
 
-If you have any other problems, please [create an issue](https://github.com/ryan-andrew/android_sideloader/issues/new).
+If you have any other problems, please [create an issue](https://github.com/allea/Android-SideHustle/issues/new).
 Please also attach the logs to the issue. Logs can be saved via the first button on the bottom right of the app:
 
 <img src="docs/images/save_logs.png" alt="See it in action" width="400"/>

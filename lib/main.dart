@@ -1,4 +1,5 @@
 import 'package:android_sideloader/logs/log.dart';
+import 'package:android_sideloader/services/preferences.dart';
 import 'package:android_sideloader/ui/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -6,6 +7,7 @@ import 'package:window_manager/window_manager.dart';
 
 void main() async => await Log.init(level: Level.all, () async {
   Log.i("Logging initialized. Starting app...");
+  await Preferences.init();
   await windowManager.ensureInitialized();
 
   windowManager.waitUntilReadyToShow(

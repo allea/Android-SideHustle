@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 
 class DeviceListItem extends StatelessWidget {
   final AdbDevice device;
+  final bool showSerialNumber;
 
-  const DeviceListItem({super.key, required this.device});
+  const DeviceListItem({
+    super.key,
+    required this.device,
+    this.showSerialNumber = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +35,15 @@ class DeviceListItem extends StatelessWidget {
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
-              Text(
-                device.id,
-                style: TextStyle(
-                  color: theme.colorScheme.onSurface.withAlpha(200),
-                  fontSize: theme.textTheme.bodySmall?.fontSize,
+              if (showSerialNumber)
+                Text(
+                  device.id,
+                  style: TextStyle(
+                    color: theme.colorScheme.onSurface.withAlpha(200),
+                    fontSize: theme.textTheme.bodySmall?.fontSize,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                overflow: TextOverflow.ellipsis,
-              ),
             ],
           ),
         ),
